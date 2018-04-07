@@ -13,6 +13,8 @@ import Control.Monad.Effect (Effect)
 import Data.Foreign (Foreign, toForeign)
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toNullable)
+import Node.Events.Event (Event(..))
+import Node.Events.EventEmitter (class EventEmitter)
 
 type ListenImplOptions =
     { path :: Nullable String
@@ -54,7 +56,7 @@ toListenImplOptions (TcpListenOptions tcpListenOptions) =
     , exclusive: toNullable tcpListenOptions.exclusive
     }
 
-class Server server where
+class EventEmitter server <= Server server where
     listen :: ListenOptions -> Effect Unit -> server -> Effect Unit
 
 foreign import listenImpl ::
@@ -71,3 +73,9 @@ defaultListen listenOptions listeningListener server = let
 listen_ :: forall server. Server server =>
     ListenOptions -> server -> Effect Unit
 listen_ listenOptions server = listen listenOptions (pure unit) server
+
+close :: forall server. Server server => Event server (Effect Unit)
+close = Event "close"
+
+listening :: forall server. Server server => Event server (Effect Unit)
+listening = Event "listening"
