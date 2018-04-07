@@ -1,5 +1,5 @@
 {
-  "name": "purescript-idiomatic-node-network",
+  "name": "purescript-idiomatic-node-server",
   "description": "An idiomatic wrapper for Node's Server interface.",
   "homepage": "https://github.com/bklaric/purescript-idiomatic-node-server",
   "repository": {
