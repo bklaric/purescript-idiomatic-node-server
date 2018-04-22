@@ -9,7 +9,7 @@ module Node.Server
 
 import Prelude
 
-import Control.Monad.Effect (Effect)
+import Effect (Effect)
 import Data.Foreign (Foreign, toForeign)
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toNullable)
