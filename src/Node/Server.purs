@@ -10,7 +10,7 @@ module Node.Server
 import Prelude
 
 import Effect (Effect)
-import Data.Foreign (Foreign, toForeign)
+import Foreign (Foreign, unsafeToForeign)
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toNullable)
 import Node.Events.Event (Event(..))
@@ -66,7 +66,7 @@ defaultListen :: forall server.
     ListenOptions -> Effect Unit -> server -> Effect Unit
 defaultListen listenOptions listeningListener server = let
     listenImplOptions = toListenImplOptions listenOptions
-    foreignServer = toForeign server
+    foreignServer = unsafeToForeign server
     in
     listenImpl listenImplOptions listeningListener foreignServer
 
